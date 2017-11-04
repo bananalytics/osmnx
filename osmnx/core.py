@@ -1839,3 +1839,38 @@ def graph_from_file(filename, network_type='all_private', simplify=True,
     
     log('graph_from_file() returning graph with {:,} nodes and {:,} edges'.format(len(list(G.nodes())), len(list(G.edges()))))
     return G
+
+
+def graph_from_geojson(filename, network_type='all_private', simplify=True,
+                    retain_all=False, name='unnamed'):
+    """
+    Create a networkx graph from OSM data in a GeoJSON file.
+
+    Parameters
+    ----------
+    filename : string
+        the name of a file containing OSM GeoJSON data
+    network_type : string
+        what type of street network to get
+    simplify : bool
+        if true, simplify the graph topology
+    retain_all : bool
+        if True, return the entire graph even if it is not connected
+    name : string
+        the name of the graph
+
+    Returns
+    -------
+    networkx multidigraph
+    """
+    
+    # create graph using GeoJSON
+    G = create_graph(filename, network_type=network_type,
+                     retain_all=retain_all, name=name)
+
+    # simplify the graph topology as the last step.
+    if simplify:
+        G = simplify_graph(G)
+    
+    log('graph_from_geojson() returning graph with {:,} nodes and {:,} edges'.format(len(list(G.nodes())), len(list(G.edges()))))
+    return G
