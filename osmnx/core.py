@@ -771,10 +771,10 @@ def get_node(element):
     node['y'] = element['lat']
     node['x'] = element['lon']
     node['osmid'] = element['id']
-    if 'tags' in element:
+    if 'tag' in element:
         for useful_tag in settings.useful_tags_node:
-            if useful_tag in element['tags']:
-                node[useful_tag] = element['tags'][useful_tag]
+            if useful_tag in element['tag']:
+                node[useful_tag] = element['tag'][useful_tag]
     return node
 
 
