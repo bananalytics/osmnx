@@ -41,7 +41,7 @@ def add_node_elevations(G, api_key, max_locations_per_batch=350,
     """
 
     # google maps elevation API endpoint
-    url_template = 'https://maps.googleapis.com/maps/api/elevation/json?locations={}&key={}'
+    url_template2 = 'https://maps.googleapis.com/maps/api/elevation/json?locations={}&key={}'
 
     # make a pandas series of all the nodes' coordinates as 'lat,lng'
     # round coorindates to 5 decimal places (approx 1 meter) to be able to fit
@@ -55,7 +55,7 @@ def add_node_elevations(G, api_key, max_locations_per_batch=350,
     for i in range(0, len(node_points), max_locations_per_batch):
         chunk = node_points.iloc[i : i + max_locations_per_batch]
         locations = '|'.join(chunk)
-        url = url_template.format(locations, api_key)
+        url = url_template2.format(locations, api_key)
 
         # check if this request is already in the cache (if global use_cache=True)
         cached_response_json = get_from_cache(url)
